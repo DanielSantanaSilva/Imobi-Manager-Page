@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ImobiManager: Sistema de Gestão de Propriedades Imobiliárias
 
-## Getting Started
+## Descrição
 
-First, run the development server:
+ImobiManager é uma API RESTful desenvolvida em Node.js e TypeScript para gerenciar um sistema simples de propriedades imobiliárias. O projeto utiliza PostgreSQL como banco de dados e TypeORM para interação com o banco. 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Tecnologias Utilizadas
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+* **React:** Utilizado em conjunto com Next.js para criação de interfaces dinâmicas e interativas.
+* **Next.js:** Utilizado para desenvolvimento frontend com renderização no lado do servidor (SSR).
+* **TailwindCSS:** Framework para estilização com utilitários de CSS.
+* **Shadcn:** Biblioteca para criação de componentes reutilizáveis, como botões, modais e barras de navegação.
+* **Zod:** Para validação de dados no frontend.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Funcionalidades
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+* **Tela Principal:**
+* Listagem de todas as propriedades, com informações vindas da API.
+* Implementação de filtros fornecidos pelo backend.
+* Paginação para exibir 9 propriedades por página.
 
-## Learn More
+* **Tela de Detalhes do Empreendimento:** Criação de construtoras e vinculação com propriedades.
+* Exibição de detalhes completos de uma propriedade selecionada.
+* Uso adequado de semântica HTML (h1, h2, etc.).
 
-To learn more about Next.js, take a look at the following resources:
+* **Tela de Cadastro:** Upload de imagens para as propriedades e armazenamento no backend.
+* Formulário para criar novas propriedades, com validação no frontend usando Zod.
+* Placeholder para imagem no caso de ausência de upload.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Arquitetura
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+* **Frontend:** React e Next.js para criação de interfaces do usuário com renderização no lado do servidor (SSR).
+* **TailwindCSS** Para personalização e responsividade.
+* **Shadcn :** Componentização com Shadcn para criar componentes reutilizáveis e consistentes.
+* **Zod**  Para garantir dados consistentes antes de serem enviados à API.
 
-## Deploy on Vercel
+## Como Executar
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Clone o repositório:**
+   ```bash
+   git clone https://github.com/DanielSantanaSilva/Imobi-Manager-Page.git
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+2. **Instale as dependências:**
+   ```bash
+   npm install
+
+3. **Configure o banco de dados:**
+Crie um arquivo .env na raiz do projeto e configure as variáveis de ambiente para conexão com o banco de dados.
+
+4. **Execute a aplicação:**
+   ```bash
+   npm start
+
+## Contribuindo
+Agradecemos sua contribuição! Para contribuir com o projeto, siga estes passos:
+
+* Fork o repositório.
+* Crie uma nova branch.
+* Faça suas alterações e commit.
+* Envie um pull request.
+
+Licença:
+Este projeto está licenciado sob a licença MIT.
+
+Autores
+Daniel Santana Silva - Desenvolvedor principal
