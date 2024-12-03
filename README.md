@@ -2,7 +2,7 @@
 
 ## Descrição
 
-ImobiManager é uma API RESTful desenvolvida em Node.js e TypeScript para gerenciar um sistema simples de propriedades imobiliárias. O projeto utiliza PostgreSQL como banco de dados e TypeORM para interação com o banco. 
+Aplicação web que consome a API 'Imobi-Manager-Api' criada para exibir e gerenciar propriedades. Desenvolvida com React, NexjJs, TailwindCSS, Shadcn e Zod. 
 
 ## Tecnologias Utilizadas
 
