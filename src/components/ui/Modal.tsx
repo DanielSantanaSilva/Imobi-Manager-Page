@@ -1,68 +1,97 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, MouseEvent, useRef } from 'react';
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
   className?: string;
+  title?: string;
+  descriptionId?: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, className = '' }) => {
-  // Fechar o modal quando o usuário clicar fora do modal
-  const handleOutsideClick = (e: React.MouseEvent<HTMLDivElement>) => {
+const Modal: React.FC<ModalProps> = ({
+  isOpen,
+  onClose,
+  children,
+  className = '',
+  title = 'Cadastrar nova propriedade',
+  descriptionId,
+}) => {
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  // Prevent closing when clicking inside the modal
+  const handleModalContentClick = (e: MouseEvent) => {
+    e.stopPropagation();
+  };
+
+  // Close modal when clicking outside
+  const handleOverlayClick = (e: MouseEvent<HTMLDivElement>) => {
     if ((e.target as HTMLElement).id === 'modal-overlay') {
       onClose();
     }
   };
 
-  // Fechar o modal ao pressionar a tecla ESC
+  // Close modal on Escape key press and manage body scroll
   useEffect(() => {
-    const handleEsc = (e: { key: string; }) => {
+    const handleEscapeKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         onClose();
       }
     };
-    document.addEventListener('keydown', handleEsc);
-    return () => {
-      document.removeEventListener('keydown', handleEsc);
+
+    const disableScroll = () => {
+      document.body.style.overflow = 'hidden';
     };
-  }, [onClose]);
+
+    const enableScroll = () => {
+      document.body.style.overflow = '';
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscapeKey);
+      disableScroll();
+
+      // Focus on the modal content
+      modalRef.current?.focus();
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscapeKey);
+      enableScroll();
+    };
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
   return (
     <div
       id="modal-overlay"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
-      onClick={handleOutsideClick}
+      className={`fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 ${className}`}
+      onClick={handleOverlayClick}
     >
       <div
-        className={`bg-white p-6 rounded shadow-lg max-w-md w-full relative ${className}`}
-        onClick={(e) => e.stopPropagation()} // Impede o clique dentro do modal fechar ele
+        ref={modalRef}
+        className="bg-white rounded-lg shadow-xl max-w-md w-full p-6 relative focus:outline-none sm:max-w-lg md:max-w-xl"
+        onClick={handleModalContentClick}
         role="dialog"
+        aria-modal="true"
         aria-labelledby="modal-title"
-        aria-hidden={!isOpen}
+        aria-describedby={descriptionId}
+        tabIndex={-1}
       >
+
         <button
-          className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
           onClick={onClose}
+          className="absolute top-3 right-3 text-gray-500 hover:text-gray-700"
           aria-label="Fechar modal"
         >
           ×
         </button>
+
         {children}
       </div>
     </div>
   );
 };
 
-Modal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
-};
-
 export default Modal;
-
